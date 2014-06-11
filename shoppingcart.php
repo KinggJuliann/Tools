@@ -14,7 +14,7 @@
 <div id="main_container">
   <div id="header">
 
-  
+    
       
     <div class="big_banner"> 
 	<a href="">
@@ -30,9 +30,8 @@
   <div id="main_content" ALIGN="CENTER">
     <div id="menu_tab" ALIGN="CENTER">
 
-<table align="center">
+<table>
 <tr>
-
 
 
 <td>
@@ -62,7 +61,6 @@
 
 
 	<!-- SIDE LINKS (CATEGORIES )-->
-    <div class="crumb_navigation"> Navigation: <span class="current">Home</span> </div>
     <div class="left_content">
       <div class="title_box">Categories</div>
       <ul class="left_menu">
@@ -83,7 +81,7 @@
 
 
 
-	<!-- Special Products (BELOW CATEGORIES )-->
+<!-- Special Products (BELOW CATEGORIES )-->
       <div class="title_box">Special Products</div>
       <div class="border_box">
         <div class="product_title"><a href="">Makita 156 MX-VL</a></div>
@@ -95,87 +93,107 @@
    <!-- end of left content -->
 
 <!-- middle section (PAGE CONTENT)-->
-   
     <div class="center_content">
-<h1> Contact Us </h1>
-<br/>
-<br/>
-<br/>
-<form name="form1" method="post" action="contactUs.php">
-<table border="0" cellpadding="0" cellspacing="0" width="98%">
-<tbody>
-<tr>
-<td>First Name:</td>
-<td><label>
-<input name="UserName" id="UserName" type="text"> </label></td>
-<td>&nbsp;</td>
-</tr>
 
-<tr>
-<td>
-<br/>
-</td>
-</tr>
-<tr>
+<!-- START OF shopping cart -->
+ <div class="shop-inner-cat">
+ <div class="shop-inner-catleft"> </div>
+ <div class="shop-inner-catmid">Shopping Cart</div>
+ <div class="shop-inner-catright"> </div>
+ <div class="shop-inner-catmid-area">
+ 	 <div class="form_con">
+ <div class="basket_detail_con">
+ <div class="basket_top">
+  <table class="basket_header" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr class="header">
+      <th style="border-left:none;" height="31" width="229">Product</th>
+      <th align="left" nowrap="nowrap" width="130">Quantity</th>
+      <th align="left" width="135">Product Price</th>
+     <!-- <th width="164" align="left">Lainnya			</th>-->
+      <th align="left" width="141">Total</th>
+      </tr>
+  </tbody></table>
+ </div>
 
-<td>Last Name:</td>
-<td><input name="RealName" id="RealName" type="text"></td>
-</tr>
+  <table class="basket_detail" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tbody>
+		<tr>
 
-<tr>
-<td>
-<br/>
-</td>
-</tr>
-<tr>
+      <td class="cell_des" align="center" width="229"><a style="color:#990000" href="#"><strong>Makita 156 MX-VL</strong></a></td>
+      <td align="left" width="130">1</td>
+      <td class="price1" align="left" width="135">
+	  250$      </td>
+      <td class="price1" align="left" width="141">
+      250$      </td>
+    </tr>
+	</tbody></table>  
+ 
+</div>
+</div>
+<div style="padding-top:12px; border-bottom:none;" class="basket_detail_con">
+<div class="basket_top">
+  </div>
+  <table class="basket_detail" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+      <td align="right" width="842"><strong>Sub Total</strong></td>
+      <td align="center" width="156"><strong>
+	 $250     </strong>
+        </td>
+    </tr>    <tr>
+      <td align="right"><h4>Total ( <span>*Total Payable</span> )</h4></td>
+      <td align="center"><strong>$250       
+        </strong></td>
+    </tr>
+    <tr style="border-bottom:none">
+      <td style="border-bottom:none" colspan="2" align="right"></td>
+    </tr>
+  </tbody></table>
+  
 
-<tr>
-<td>Email:</td>
-<td><input name="Email" id="Email" type="text"></td>
-</tr>
+        
 
-<tr>
-<td>
-<br/>
-</td>
-</tr>
-<tr>
+<!-- Star OF PayPal -->
+<div class="basket_bottom">
 
-<tr>
-<td>Subject:</td>
-<td><input name="Subject" id="Subject" type="text"></td>
-</tr>
-
-<tr>
-<td>
-<br/>
-</td>
-</tr>
-<tr>
-
-<tr>
-<td>Message:</td>
-<td><textarea cols="45"
-rows="5"></textarea></td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td><label> <input name="submit" id="button" value="Submit"
-type="submit"> </label> <label> <input name="button2" id="button2"
-value="Clear" type="reset"> </label></td>
-</tr>
-</tbody>
-</table>
+  <table class="bottom" cellpadding="0" cellspacing="0" border="0" width="100%">
+      <tbody><tr>
+        <td align="center" height="41" width="31%"><a class="promotion_vouchers_a" href="#">Click Here To Continue Shopping</a></td>
+        <td align="center" valign="middle" width="41%">&nbsp;</td>
+        <td align="center" width="8%">&nbsp;</td>
+        <td align="center" width="20%">
+		<form method="post" name="paypal_form" action="https://www.sandbox.paypal.com/cgi-bin/webscr">
+<!--<form method="post" name="paypal_form" action="https://www.paypal.com/cgi-bin/webscr">-->
+<input type="hidden" name="upload" value="1"/>
+<input type="hidden" name="cmd" value="_cart"/>
+<input type="hidden" name="currency_code" value="GBP"/>
+<input type="hidden" name="business" value="mohamed100@hotmail.com"/>
+<input type="hidden" name="return" value="#"/>
+<input type="hidden" name="cancel_return" value="#"/>
+<input type="hidden" name="notify_url" value="#"/>
+<input type="hidden" name="item_name_1" value="<?php echo 'Makita 156 MX-VL';?>"/>
+<input type="hidden" name="amount_1" value="250"/>
+<input type="hidden" name="quantity_1" value="1"/>
+<input type="submit" value="Checkout"></center>
 </form>
 
-    </div>
+							</td>
+      </tr>
+    </tbody></table>
+</div>
+<!-- end OF Palpal -->
 
-   
+</div>
+<div class="clear"></div>
+</div>
+<div class="clearfloat"></div>
+</div>      
+<!-- end OF shopping cart -->
 
+
+
+	  
+<!-- end of recommended products-->
+</div>
 <!-- end of page content (MIDDLE CONTENT)-->
 
 
@@ -192,11 +210,11 @@ value="Clear" type="reset"> </label></td>
 
  
 <!-- START OF SHOPPING CART-->
-	<div class="shopping_cart">
+<div class="shopping_cart">
         <div class="title_box">Shopping cart</div>
         <div class="cart_details"> 3 items <br />
           <span class="border_cart"></span> Total: <span class="price">350$</span> </div>
-        <div class="cart_icon"><a href=""><img src="images/shoppingcart.png" alt="" width="35" height="35" border="0" /></a></div>
+        <div class="cart_icon"><a href="shoppingcart.php"><img src="images/shoppingcart.png" alt="" width="35" height="35" border="0" /></a></div>
       </div>
 <!-- end of shopping cart-->
 
@@ -221,7 +239,7 @@ value="Clear" type="reset"> </label></td>
         <li class="odd"><a href="">Phillips</a></li>
         <li class="even"><a href="">Beko</a></li>
       </ul>
-
+      
 <!-- end of MANUFACTURERS-->
 
 
@@ -235,7 +253,7 @@ value="Clear" type="reset"> </label></td>
 <!-- START OF FOOTER-->
   <div class="footer">
     <div class="left_footer"> <img src="images/footer_logo.png" alt="" width="89" height="42"/> </div>
-    <div class="center_footer">  AJM SOLUTIONS <br />
+    <div class="center_footer"> Template name. All Rights Reserved 2008<br />
       <a href="http://csscreme.com"><img src="images/csscreme.jpg" alt="csscreme" title="csscreme" border="0" /></a><br />
       <img src="images/payment.gif" alt="" /> </div>
     <div class="right_footer"> <a href="">home</a> <a href="">about</a> <a href="">sitemap</a> <a href="">rss</a> <a href="">contact us</a> </div>
@@ -243,6 +261,5 @@ value="Clear" type="reset"> </label></td>
 <!-- end of footer-->
 </div>
 <!-- end of main_container -->
-
 <div align=center> AJM SOLUTIONS <a href=''></a></div></body>
 </html>
