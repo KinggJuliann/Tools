@@ -14,8 +14,8 @@ $function = $_POST['function'];
     case "deleteProduct":
         deleteProduct();
         break;
-    case 2:
-        echo "i equals 2";
+    case "editProduct":
+        editProduct();
         break;
 }
 
@@ -47,7 +47,6 @@ $description = $_POST['description'];
 $category = $_POST['category'];
 $price = $_POST['price'];
 $specification = $_POST['specification'];
-$pictures = $_POST['pictures'];
 
 
 $sql = "INSERT INTO products (name,manufacturer,description,categoryID,price,specification)
@@ -94,6 +93,39 @@ try {
 }
 
 function editProduct(){
+
+$id = $_POST['productID'];
+$name = $_POST['name'];
+$manufacturer = $_POST['manufacturer'];
+$description = $_POST['description'];
+$category = $_POST['category'];
+$price = $_POST['price'];
+$specification = $_POST['specification'];
+
+$price = preg_replace("/[^-0-9\.]/","",$price);
+
+
+$sql = "UPDATE products SET name = :name,manufacturer = :manufacturer,description = :description,
+categoryID = :category,price = :price,specification = :specification WHERE id = :id;";
+
+ try {
+    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+	$STH->bindParam(":id",$id);
+	$STH->bindParam(":name", $name);
+	$STH->bindParam(":manufacturer",$manufacturer);
+	$STH->bindParam(":description", $description);
+	$STH->bindParam(":category", $category);
+	$STH->bindParam(":price", $price);
+	$STH->bindParam(":specification", $specification);
+	$STH->execute();
+	echo '<script language="javascript">';
+	echo "window.alert('Product Succesfully Updated!'); window.location.href='http://localhost/test/AdminPanel.php';";
+	echo '</script>';
+	die();
+} catch(PDOException $ex) {
+    echo "An Error occured!"; 
+}
+
 
 }
 

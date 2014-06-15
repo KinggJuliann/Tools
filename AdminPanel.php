@@ -22,8 +22,10 @@
 <?php require "DatabasePosts.php"; 
 		require "dialogDraws.php";?> <!-- IMPORT OF DATABASE FUNCTIONS AND DIALOG DRAWS-->
 
-<h1> ADMIN CONTROL PANEL </h1>
-
+    <div id="logo">
+	 <a href="">
+ 	 <img src="images/logo.png" alt="" border="0" width="182" height="85" />  </a></div>
+	 
 <div id="tabs" >
   <ul>
     <li><a href="#tabs-Products">Products</a></li>

@@ -9,7 +9,7 @@ function dialogAddNewProduct() {
 	<tr>
 	<td> <label for="name"> Name: <label> </th>
     <td>
-    <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
+    <input size="45" type="text" name="name" id="name" class="text ui-widget-content ui-corner-all">
 	</td>
 	</tr>
 	<tr>
@@ -58,14 +58,6 @@ function dialogAddNewProduct() {
 	<textarea rows="4" cols="40" name="specification" id="specification" class="text ui-widget-content ui-corner-all"> </textarea>
 	</td>
 	</tr>
-	<tr>
-	<td>
-   <label for="pictures">Picture Links:</label> 
-   </td>
-   <td>
-   <textarea rows="4" cols="40" name="pictures" id="pictures" placeholder="Seperate links with a comma (,)" class="text ui-widget-content ui-corner-all"> </textarea>
-   </td>
-   </tr>
    </table>
   </fieldset>
   
@@ -89,7 +81,7 @@ function dialogDeleteProduct(){
    
    <form method="post" action="DatabasePosts.php"> 
    
-   <input  type="hidden" name="productID" id="productID" /> <!-- PRODUCT ID WILL BE FILLED BY JQUERY -->
+   <input  type="hidden" name="productID" id="productID" /> 
    <input type="hidden" name="function" value="deleteProduct"/> 
    <button type="submit" > YES, I WANT TO DELETE THIS PRODUCT! </button>
    <button type="button" id="cancel"> NO, CANCEL! </button>
@@ -101,7 +93,7 @@ function dialogDeleteProduct(){
 
 function dialogEditProduct() {
 
-echo '<div id="dialog-modal" title="Add New Product" style="display: none;">
+echo '<div id="dialog-modal-edit" title="Add New Product" style="display: none;">
    <p class="validateTips">All form fields are required.</p>
   <form method="post" action="DatabasePosts.php" > <!-- MAIN FORM ----------------------------------->
   <fieldset>
@@ -109,7 +101,15 @@ echo '<div id="dialog-modal" title="Add New Product" style="display: none;">
 	<tr>
 	<td> <label for="name"> Name: <label> </th>
     <td >
-    <input type="text" name="name" id="edit-productName" class="text ui-widget-content ui-corner-all">
+    <input type="text" size="45" name="name" id="edit-productName" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<label for="manufacturer"> Manufacturer: <label>
+	</td>
+	    <td>
+    <input type="text" name="manufacturer" id="edit-productManufacturer" class="text ui-widget-content ui-corner-all">
 	</td>
 	</tr>
 	<tr>
@@ -125,7 +125,7 @@ echo '<div id="dialog-modal" title="Add New Product" style="display: none;">
 	<label for="category">Category:</label>
 	</td>
 	<td>
-    <select name="category">
+    <select name="category" id="selectCategory">
 		<option  value="1">Power Tools</option>
 		<option value="2">Hand Tools</option>
 		<option value="3">Accessories</option>
@@ -150,23 +150,16 @@ echo '<div id="dialog-modal" title="Add New Product" style="display: none;">
 	<textarea rows="4" cols="40" name="specification" id="edit-productSpec" class="text ui-widget-content ui-corner-all"> </textarea>
 	</td>
 	</tr>
-	<tr>
-	<td>
-   <label for="pictures">Picture Links:</label> 
-   </td>
-   <td>
-   <textarea rows="4" cols="40" name="pictures" id="pictures" placeholder="Seperate links with a comma (,)" class="text ui-widget-content ui-corner-all"> </textarea>
-   </td>
-   </tr>
    </table>
   </fieldset>
   
+   <input  type="hidden" name="productID" id="edit-productID" /> 
+  
   <input type="hidden" name="function" value="editProduct">
   
-    <p align="center">
-  <input type="submit" value="Submit">
-   </p>
-  
+  <div align="center">
+  <button type="submit" value="Submit"> SUBMIT CHANGES! </button>
+  </div>
   </form>
  
    </div> ';

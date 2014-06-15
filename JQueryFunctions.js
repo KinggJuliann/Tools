@@ -100,17 +100,28 @@ if (document.getElementsByClassName("selectedTD").length > 2)
 	 }
 }
 
-// EDIT PRODUCT DIALOG
+// EDIT PRODUCT DIALOG YourFatShit
 
   function showEditDialog()
 {
     $("#dialog-modal-edit").dialog(
     {
         width: 900,
-        height: 600,
+        height: 600, 
         open: function(event, ui)
-        {
-           			$("#edit-productName").val(productID);
+        {		
+			var elements = document.getElementsByClassName("selectedTD");
+			var price = elements[5].firstChild.data.toString();
+			var temp = price.replace(/£/g,'');
+					$("#edit-productID").val(elements[0].firstChild.data);
+           			$("#edit-productName").val(elements[1].firstChild.data);
+					$("#edit-productManufacturer").val(elements[2].firstChild.data);
+					$("#edit-productDesc").val(elements[3].firstChild.data);
+					var categoryID = elements[4].firstChild.data.replace ( /[^\d.]/g, '' );
+					var selectBox = document.getElementById('selectCategory');
+					selectBox.value = categoryID;
+					$("#edit-productPrice").val(temp);
+					$("#edit-productSpec").val(elements[6].firstChild.data);
         }
      });
 }
