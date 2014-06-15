@@ -104,6 +104,8 @@ if (document.getElementsByClassName("selectedTD").length > 2)
 
   function showEditDialog()
 {
+if (document.getElementsByClassName("selectedTD").length > 2)
+{
     $("#dialog-modal-edit").dialog(
     {
         width: 900,
@@ -124,29 +126,41 @@ if (document.getElementsByClassName("selectedTD").length > 2)
 					$("#edit-productSpec").val(elements[6].firstChild.data);
         }
      });
+	 } else {
+	 alert('You have not selected a product! Click a product on the table first!');
+	 }
 }
 
 // ADD REMOVE IMAGES DIALOG
 
-  function showImageDialog()
+  function showPicturesDialog()
 {
-    $("#dialog-modal-image").dialog(
+if (document.getElementsByClassName("selectedTD").length > 2)
+{
+    $("#dialog-modal-pictures").dialog(
     {
-        width: 900,
-        height: 600,
+        width: 700,
+        height: 400,
         open: function(event, ui)
-        {
-            var textarea = $('<textarea style="height: 300px;">');
-            $(textarea).redactor({
-                focus: true,
-                autoresize: false,
-                initCallback: function()
-                {
-                    this.set('<p>Lorem...</p>');
-                }
-            });
+        {        
+
+			var elements = document.getElementsByClassName("selectedTD");
+			var pID = elements[0].firstChild.data.toString(); //SELECTED PRODUCT's ID
+			var productID = document.getElementsById('productID-'+pID); //ID FOR TD of PRODUCT ID FOR LOOP
+			var productIDLinks = document.getElementsById('productID-'+pID+'-link'); //ARRAY OF TD LINKS WITH productID-id-link as id
+			
+			$("#pictureLink1").val(productIDLinks[0].firstChild.data);	
+			$("#pictureLink2").val(productIDLinks[1].firstChild.data);
+			$("#pictureLink3").val(productIDLinks[2].firstChild.data);
+			$("#pictureLink4").val(productIDLinks[3].firstChild.data);
+			$("#pictureLink5").val(productIDLinks[4].firstChild.data);   		
+			
         }
      });
+	 } else {
+	 alert('You have not selected a product! Click a product on the table first!');
+	 }
+	 
 }
 
 

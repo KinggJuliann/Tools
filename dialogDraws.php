@@ -93,7 +93,7 @@ function dialogDeleteProduct(){
 
 function dialogEditProduct() {
 
-echo '<div id="dialog-modal-edit" title="Add New Product" style="display: none;">
+echo '<div id="dialog-modal-edit" title="Edit Product" style="display: none;">
    <p class="validateTips">All form fields are required.</p>
   <form method="post" action="DatabasePosts.php" > <!-- MAIN FORM ----------------------------------->
   <fieldset>
@@ -164,6 +164,51 @@ echo '<div id="dialog-modal-edit" title="Add New Product" style="display: none;"
  
    </div> ';
 
+}
+
+function dialogPictures() {
+
+	echo ' <div id="dialog-modal-pictures" title="Add or Remove Pictures from Product" style="display: none;">
+   
+   <form method="post" action="DatabasePosts.php">    
+   <input  type="hidden" name="productID" id="productID" /> 
+   <input type="hidden" name="function" value="editPictures"/> 
+
+   <table>
+   <tr>
+   <td>Picture 1: </td>
+   <td> <input type="text" size="50" name="pictureLink1" id="PictureLink1" value="" class="text ui-widget-content ui-corner-all"> </td>
+   <td>  <button type="button" id="delete"> Delete </button> </td>
+   </tr>
+      <tr>
+   <td>Picture 2: </td>
+   <td> <input type="text" size="50" name="pictureLink2" id="PictureLink2" value="" class="text ui-widget-content ui-corner-all"> </td>
+   <td>  <button type="button" id="delete"> Delete </button> </td>
+   </tr>
+   
+      <tr>
+   <td>Picture 3: </td>
+   <td> <input type="text" size="50" name="pictureLink3" id="PictureLink3" value="" class="text ui-widget-content ui-corner-all"> </td>
+   <td>  <button type="button" id="delete"> Delete </button> </td>
+   </tr>
+   
+      <tr>
+   <td>Picture 4: </td>
+   <td> <input type="text" size="50" name="pictureLink4" id="PictureLink4" value="" class="text ui-widget-content ui-corner-all"> </td>
+   <td>  <button type="button" id="delete"> Delete </button> </td>
+   </tr>
+   
+      <tr>
+   <td>Picture 5: </td>
+   <td> <input type="text" size="50" name="pictureLink5" id="PictureLink5" value="" class="text ui-widget-content ui-corner-all"> </td>
+   <td>  <button type="button" id="delete"> Delete </button> </td>
+   </tr>
+   
+   </table>
+   <br/>
+     <button type="submit" value="Submit"> SUBMIT! </button>
+   </form>
+   </div>';
 
 }
 

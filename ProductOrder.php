@@ -8,6 +8,6 @@ class ProductOrder
 	public $time;
 	public $authorisationString;
 	public $totalPrice;
-	public $shipped;
+	public $statusID;
 
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<category>
-<1>Power Tools</1>
-<2>Hand Tools</2>
-<3>Accessories</3>
-<4>Workwear</4>
-<5>Misc</5>
-</category>
+<resources>
+<categories>
+	<category1>Power Tools</category1>
+	<category2>Hand Tools</category2>
+	<category3>Accessories</category3>
+	<category4>Workwear</category4>
+	<category5>Misc</category5>
+</categories>
+</resources>

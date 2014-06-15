@@ -25,20 +25,6 @@ $function = null;
 
  ///////////////////////////////
 /* Product related functions */
-function getProductID($inID=null) {
-}
-
-function getProductsCat($inID=null,$inCat=null){
-}
-
-function getPopularProducts(){
-}
-
-function searchProducts($inString=null){
-}
-
-function productSold($inID){
-}
 
 function addNewProduct(){
 $name = $_POST['name'];
@@ -129,6 +115,39 @@ categoryID = :category,price = :price,specification = :specification WHERE id = 
 
 }
 
+function editPictures(){
+
+$id = $_POST['productID'];
+
+for ($x = 1; $x <= 5; $x++) {
+
+if (isset($_POST['pictureLink'.$x]) && !empty($_POST['pictureLink'.$x])) {
+
+$link = $_POST['pictureLink'.$x];
+
+$sql = "INSERT INTO picturearrays (productID,pictureLink,pictureNum) VALUES (:id,:link,:number)";
+
+ try {
+    $STH = $GLOBALS["db"]->prepare($sql); 
+	$STH->bindParam(":id",$id);
+	$STH->bindParam(":link", $link);
+	$STH->bindParam(":number",$x);
+	$STH->execute();
+} catch(PDOException $ex) {
+    echo "An Error occured!"; 
+} // END CATCH
+
+} // END IF
+
+} // END FOR
+
+	echo '<script language="javascript">';
+	echo "window.alert('Picture(s) Succesfully Updated!'); window.location.href='http://localhost/test/AdminPanel.php';";
+	echo '</script>';
+	die();
+
+}
+
  ////////////////////////////////
 /* Customer related functions */
 
@@ -136,12 +155,6 @@ function newCustomer(){
 }
 
 function deleteCustomer($inID=null){
-}
-
-function searchCustomer($inString=null){
-}
-
-function getCustomer(){
 }
 
 ?>
