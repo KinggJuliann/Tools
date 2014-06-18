@@ -212,6 +212,167 @@ function dialogPictures() {
 
 }
 
+
+function dialogEditCustomer() {
+
+echo '<div id="dialog-modal-edit-customer" title="Edit Customer" style="display: none;">
+   <p class="validateTips">All form fields are required.</p>
+  <form method="post" action="DatabasePosts.php" > <!-- MAIN FORM ----------------------------------->
+  <fieldset>
+	<table>
+	<tr>
+	<td> <label for="title"> Title: <label> </th>
+    <td >
+    <input type="text" size="45" name="title" id="edit-customerTitle" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+		<tr>
+	<td> <label for="FName"> First Name: <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerFName" id="edit-customerFName" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+	
+		<tr>
+	<td> <label for="LName"> Last Name: <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerLName" id="edit-customerLName" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+		<tr>
+	<td> <label for="Email"> Email : <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerEmail" id="edit-customerEmail" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+		<tr>
+	<td> <label for="Number"> Phone Number: <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerNumber" id="edit-customerNumber" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+		<tr>
+	<td> <label for="AddressL1"> Address Line 1: <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerAddressLine1" id="edit-customerAddressL1" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+	<tr>
+	<td> <label for="AddressL2"> Address Line 2: <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerAddressLine2" id="edit-customerAddressL2" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+	<tr>
+	<td> <label for="AddressCity"> Address City/Town: <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerAddressCity" id="edit-customerAddressCity" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+	<tr>
+	<td> <label for="AddressPostal"> Address Postal Code: <label> </th>
+    <td >
+    <input type="text" size="45" name="edit-customerAddressPostal" id="edit-customerAddressPostal" class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+   </table>
+  </fieldset>
+  
+   <input  type="hidden" name="productID" id="edit-customerID" /> 
+  
+  <input type="hidden" name="function" value="editCustomer">
+  
+  <div align="center">
+  <button type="submit" value="Submit"> SUBMIT CHANGES! </button>
+  </div>
+  </form>
+ 
+   </div> ';
+
+}
+
+function dialogDeleteCustomer(){
+
+	echo ' <div id="dialog-modal-confirm-customer" title="Delete Customer Confirmation" style="display: none;">
+   <h2> ARE YOU SURE YOU WANT TO DELETE THE CUSTOMER: </h2>
+   <p id="deleteConfirmationCustomer" style="font-size:30px;"> <p>
+   
+   <form method="post" action="DatabasePosts.php"> 
+   
+   <input  type="hidden" name="customerID" id="customerID" /> 
+   <input type="hidden" name="function" value="deleteCustomer"/> 
+   <button type="submit" > YES, I WANT TO DELETE THIS CUSTOMER! </button>
+   <button type="button" id="cancel"> NO, CANCEL! </button>
+   
+   </form>
+   </div>';
+
+}
+
+
+function dialogEmailCustomer() {
+
+echo '<div id="dialog-modal-email-customer" title="Contact Customer" style="display: none;">
+   <p class="validateTips">All form fields are required.</p>
+  <form method="post" action="DatabasePosts.php" > <!-- MAIN FORM ----------------------------------->
+  <fieldset>
+	<table>
+	<tr>
+	<td> <label for="Customer" > Customer: <label> </th>
+    <td >
+     <div id="email-label-customerName">
+	 </div>
+	</td>
+	</tr>
+	<tr>
+	<td> <label for="Email" > Email: <label> </th>
+    <td >
+     <div id="email-customerID" >
+	 </div>
+	</td>
+	</tr>
+	<tr>
+	<td> <label for="Subject"> Subject: <label> </th>
+    <td >
+    <input type="text" size="45" name="subject"  class="text ui-widget-content ui-corner-all">
+	</td>
+	</tr>
+	<tr>
+	<td style="vertical-align: top;"> <label for="Message"> Message: <label> </th>
+    <td >
+    <textarea rows="10" cols="70" name="message"  class="text ui-widget-content ui-corner-all"> </textarea>
+	</td>
+	</tr>
+   </table>
+  </fieldset>
+  
+  <input type="hidden" name="customer-email" />
+  <input type="hidden" name="function" value="emailCustomer"/>
+  
+  <div align="center">
+  <button type="submit" value="Submit"> Send Email! </button>
+  </div>
+  </form>
+ 
+   </div> ';
+
+}
+
+function showOrderViewDialog() {
+
+}
+
+
+function showOrderStatusDialog() {
+
+}
+
+
+function showCustomerViewDialog() {
+
+}
+
+
 ?>
 
 

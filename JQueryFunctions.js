@@ -6,6 +6,7 @@ $(document).ready(function() {
         }
     } );
      
+	 	////PRODUCT DB TABLE
      var table = $("#DBTable").dataTable( {
         "scrollY": "200px",
         "scrollCollapse": true,
@@ -13,7 +14,8 @@ $(document).ready(function() {
         "jQueryUI": true
     });
 	
-$('#DBTable tbody').on( 'click', 'tr', function () {
+	
+	$('#DBTable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
 			table.$('.selectedTD').removeClass('selectedTD');
@@ -24,6 +26,8 @@ $('#DBTable tbody').on( 'click', 'tr', function () {
 			table.$('.selectedTD').removeClass('selectedTD');
             $(this).addClass('selected');
 			$('tr.selected>td').addClass('selectedTD');
+			
+			
 			var elements = document.getElementsByClassName("selectedTD");
 			var str = "";
 			for (var i = 0; i < elements.length; i++) {
@@ -33,18 +37,91 @@ $('#DBTable tbody').on( 'click', 'tr', function () {
 			$('#selectedResult').html(str);
         }
     } );
+	
+	//// CUSTOMER DB TABLE
+	
+	 var tableCustomer = $("#DBTableCustomer").dataTable( {
+        "scrollY": "200px",
+        "scrollCollapse": true,
+        "paging": false,
+        "jQueryUI": true
+    });
+	
+		$('#DBTableCustomer tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selectedCustomer') ) {
+            $(this).removeClass('selectedCustomer');
+			tableCustomer.$('.selectedTDCustomer').removeClass('selectedTDCustomer');
+			$('#selectedResultCustomer').html("");
+        }
+        else {
+            tableCustomer.$('tr.selectedCustomer').removeClass('selectedCustomer');
+			tableCustomer.$('.selectedTDCustomer').removeClass('selectedTDCustomer');
+            $(this).addClass('selectedCustomer');
+			$('tr.selectedCustomer>td').addClass('selectedTDCustomer');
+			var elements = document.getElementsByClassName("selectedTDCustomer");
+			var str = "";
+			for (var i = 0; i < elements.length; i++) {
+			var str = str + "<td>" + elements[i].innerHTML + "</td>";
+							}
+
+			$('#selectedResultCustomer').html(str);
+        }
+    } );
+	
+	//// ORDERS DB TABLE
+	
+		 var tableOrders = $("#DBTableOrders").dataTable( {
+        "scrollY": "200px",
+        "scrollCollapse": true,
+        "paging": false,
+        "jQueryUI": true
+    });
+	
+		$('#DBTableOrders tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selectedOrders') ) {
+            $(this).removeClass('selectedOrders');
+			tableOrders.$('.selectedTDOrders').removeClass('selectedTDOrders');
+			$('#selectedResultOrders').html("");
+        }
+        else {
+            tableOrders.$('tr.selectedOrders').removeClass('selectedOrders');
+			tableOrders.$('.selectedTDOrders').removeClass('selectedTDOrders');
+            $(this).addClass('selectedOrders');
+			$('tr.selectedOrders>td').addClass('selectedTDOrders');
+			var elements = document.getElementsByClassName("selectedTDOrders");
+			var str = "";
+			for (var i = 0; i < elements.length; i++) {
+			var str = str + "<td>" + elements[i].innerHTML + "</td>";
+							}
+
+			$('#selectedResultOrders').html(str);
+        }
+    } );
+	
+	//// TABLE BUTTONS
+
  
     $('#button').click( function () {
         table.row('.selected').remove().draw( false );
     } );
+	
+	 
+    $('#button').click( function () {
+        tableCustomer.row('.selectedCustomer').remove().draw( false );
+    } );
+	
+	   $('#button').click( function () {
+        tableOrders.row('.selectedOrders').remove().draw( false );
+    } );
+        
         
 	
 } );
   
   
   
-  // DIALOG FUNCTIONS! ////////////
-  
+  ////////////////////////////////////////////// DIALOG FUNCTIONS! ////////////
+  ////////////////////PRODUCT DIALOGS//////////////
   //  CLOSE DIALOG FUNCTION
   $(document).ready(function(){
     $('#cancel').click(function(){
@@ -100,7 +177,7 @@ if (document.getElementsByClassName("selectedTD").length > 2)
 	 }
 }
 
-// EDIT PRODUCT DIALOG YourFatShit
+// EDIT PRODUCT DIALOG 
 
   function showEditDialog()
 {
@@ -163,7 +240,90 @@ if (document.getElementsByClassName("selectedTD").length > 2)
 	 
 }
 
+////////////////////////////// CUSTOMER DIALOGS ///////////////////////////////////
 
+////EDIT CUSTOMER DIALOG
+  function showEditDialogCustomer()
+{
+if (document.getElementsByClassName("selectedTDCustomer").length > 2)
+{
+    $("#dialog-modal-edit-customer").dialog(
+    {
+        width: 900,
+        height: 500, 
+        open: function(event, ui)
+        {		
+			var elements = document.getElementsByClassName("selectedTDCustomer");
+			var price = elements[5].firstChild.data.toString();
+			var temp = price.replace(/£/g,'');
+					$("#edit-customerTitle").val(elements[1].firstChild.data);
+           			$("#edit-customerFName").val(elements[2].firstChild.data);
+					$("#edit-customerLName").val(elements[3].firstChild.data);
+					$("#edit-customerEmail").val(elements[4].firstChild.data);
+					$("#edit-customerNumber").val(elements[5].firstChild.data);
+					var address = elements[6].firstChild.data;
+					var addressArray = address.split("|");
+					$("#edit-customerAddressL1").val(addressArray[0]);
+					$("#edit-customerAddressL2").val(addressArray[1]);
+					$("#edit-customerAddressCity").val(addressArray[2]);
+					$("#edit-customerAddressPostal").val(addressArray[3]);
+        }
+     });
+	 } else {
+	 alert('You have not selected a customer! Click a customer on the table first!');
+	 }
+}
+
+
+// DELETE CUSTOMER DIALOG
+  function showConfirmationDialogCustomer()
+{
+if (document.getElementsByClassName("selectedTDCustomer").length > 2)
+{
+    $("#dialog-modal-confirm-customer").dialog(
+    {
+        width: 900,
+        height: 250,
+        open: function(event, ui)
+        {			
+			var elements = document.getElementsByClassName("selectedTDCustomer");
+			var str = elements[2].firstChild.data+" "+elements[3].firstChild.data;
+			var customerID = elements[0].firstChild.data;
+			$("#customerID").val(customerID);
+			$('#deleteConfirmationCustomer').html(str);	
+            
+        }
+     });
+	 } else {
+	 alert('You have not selected a Customer! Click a Customer on the table first!');
+	 }
+}
+
+//// EMAIL CUSTOMER DIALOG
+
+  function showEmailDialog()
+{
+if (document.getElementsByClassName("selectedTDCustomer").length > 2)
+{
+    $("#dialog-modal-email-customer").dialog(
+    {
+        width: 900,
+        height: 500,
+        open: function(event, ui)
+        {			
+			var elements = document.getElementsByClassName("selectedTDCustomer");
+			var customerEmail = elements[4].firstChild.data;
+			var customerName = elements[2].firstChild.data+" "+elements[3].firstChild.data;
+			$("#email-customerID").text(customerEmail);
+           $("#email-label-customerName").text(customerName);
+        }
+     });
+	 } else {
+	 alert('You have not selected a Customer! Click a Customer on the table first!');
+	 }
+}
+
+///////////////////////////// ORDERS DIALOGS //////////////////////////////////////////////
 
 
 

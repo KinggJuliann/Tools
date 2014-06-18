@@ -7,4 +7,10 @@
 	<category4>Workwear</category4>
 	<category5>Misc</category5>
 </categories>
+<status>
+	<status1> Processing </status1>
+	<status2> Shipped </status2>
+	<status3> Cancelled </status3>
+	<status4> Refunded </status4>
+</status>
 </resources>

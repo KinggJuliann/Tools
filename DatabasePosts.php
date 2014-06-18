@@ -1,5 +1,7 @@
 <?php
 
+//// REMEMBER TO STORE DETAILS IN ROOT DIRECTORY NOT WEB ROOT
+
 $db = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
 
 
@@ -16,7 +18,16 @@ $function = $_POST['function'];
         break;
     case "editProduct":
         editProduct();
+		break;
+	case "editCustomer":
+		editCustomer();
         break;
+	case "emailCustomer":
+		emailCustomer();
+		break;
+	case "deleteCustomer":
+		deleteCustomer();
+		break;
 }
 
 $function = null;
@@ -151,10 +162,88 @@ $sql = "INSERT INTO picturearrays (productID,pictureLink,pictureNum) VALUES (:id
  ////////////////////////////////
 /* Customer related functions */
 
-function newCustomer(){
+function editCustomer(){
+
+
+$id = $_POST['edit-customerID'];
+$title = $_POST['edit-customerID'];
+$FName = $_POST['edit-customerFName'];
+$LName = $_POST['edit-customerLName'];
+$Email = $_POST['edit-customerEmail'];
+$Number = $_POST['edit-customerNumber'];
+$AddressLine1 = $_POST['edit-customerAddressLine1'];
+$AddressLine2 = $_POST['edit-customerAddressLine2'];
+$AddressCity = $_POST['edit-customerAddressCity'];
+$AddressPostal = $_POST['edit-customerAddressPostal'];
+
+
+
+$sql = "UPDATE customers SET title = :title,firstName = :FName,lastName = :LName,
+email = :Email,phoneNumber = :Number,addressLine1 = :AddressLine1,addressLine2 = :AddressLine2,
+addressCity = :AddressCity,addressPostal = :AddressPostal WHERE id = :id;";
+
+ try {
+    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+	$STH->bindParam(":id",$id);
+	$STH->bindParam(":FName", $FName);
+	$STH->bindParam(":LName",$LName);
+	$STH->bindParam(":Email", $Email);
+	$STH->bindParam(":Number", $Number);
+	$STH->bindParam(":AddressLine1", $AddressLine1);
+	$STH->bindParam(":AddressLine1", $AddressLine2);
+	$STH->bindParam(":AddressCity", $AddressCity);
+	$STH->bindParam(":AddressPostal", $AddressPostal);
+	$STH->execute();
+	echo '<script language="javascript">';
+	echo "window.alert('Customer Succesfully Updated!'); window.location.href='http://localhost/test/AdminPanel.php';";
+	echo '</script>';
+	die();
+} catch(PDOException $ex) {
+    echo "An Error occured!"; 
 }
 
-function deleteCustomer($inID=null){
+}
+
+function deleteCustomer(){
+
+
+$id = $_POST['customerID'];
+
+$sql = "DELETE FROM customers WHERE id=$id";
+
+try {
+    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+	$STH->execute();
+	echo '<script language="javascript">';
+	echo "window.alert('Customer Succesfully Deleted!'); window.location.href='http://localhost/test/AdminPanel.php';";
+	echo '</script>';
+	die();
+} catch(PDOException $ex) {
+    echo "An Error occured!"; 
+}
+
+}
+
+function emailCustomer(){
+
+$to = $_POST['customer-email'];
+$msg = $_POST['message'];
+$subject = $_POST['subject'];
+$headers = "From: Admin@Dillips.com";
+
+$msg = wordwrap($msg,70);
+
+
+if (mail($to,$subject,$msg,$headers)){
+	echo '<script language="javascript">';
+	echo "window.alert('Email Succesfully Sent!'); window.location.href='http://localhost/test/AdminPanel.php';";
+	echo '</script>';
+	} else {
+	echo '<script language="javascript">';
+	echo "window.alert('ERROR! Contact Web Administrators'); window.location.href='http://localhost/test/AdminPanel.php';";
+	echo '</script>';
+	}
+
 }
 
 ?>
