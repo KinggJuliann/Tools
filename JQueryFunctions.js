@@ -328,6 +328,23 @@ if (document.getElementsByClassName("selectedTDCustomer").length > 2)
 
 
 
+/////////////////////// LOGIN /////////////////
+
+ function showLoginDialog()
+{
+    $("#dialog-modal-login").dialog(
+    {
+        width: 600,
+        height: 200,
+        open: function(event, ui)
+        {	
+		
+        }
+     });
+	 
+}
+
+
 
 
 

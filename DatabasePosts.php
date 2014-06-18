@@ -1,8 +1,8 @@
 <?php
 
-//// REMEMBER TO STORE DETAILS IN ROOT DIRECTORY NOT WEB ROOT
+//// REMEMBER TO STORE DETAILS IN ROOT DIRECTORY
 
-$db = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
+$db = new PDO('mysql:host=localhost;dbname=test;charset=utf8', $_SERVER['DB_USER'], $_SERVER['DB_PASS']);
 
 
 if(isset($_POST['function'])) {

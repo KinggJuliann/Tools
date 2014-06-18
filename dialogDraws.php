@@ -372,6 +372,36 @@ function showCustomerViewDialog() {
 
 }
 
+function showLoginForm(){
+
+echo '<div id="dialog-modal-login" title="Login" style="display: none;">
+  <form method="post" action="AdminPanel.php" > <!-- MAIN FORM ----------------------------------->
+  <fieldset>
+	<table>
+	<tr>
+	<td> <label for="User" > Username: <label> </th>
+    <td >
+		<input type="text" size="40" name="username" />
+	</td>
+	</tr>
+		<tr>
+	<td> <label for="User" > Password: <label> </th>
+    <td >
+		<input type="password" size="40" name="password" />
+	</td>
+	</tr>
+   </table>
+  </fieldset>
+
+  <div align="center">
+  <button type="submit" value="Submit"> Login </button>
+  </div>
+  </form>
+ 
+   </div> ';
+
+}
+
 
 ?>
 

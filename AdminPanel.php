@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -22,8 +24,32 @@
 </head>
 <body>
 <?php require "DatabasePosts.php"; 
-		require "dialogDraws.php";?> <!-- IMPORT OF DATABASE FUNCTIONS AND DIALOG DRAWS-->
+		require "dialogDraws.php";
+		
+		if (isset($_POST['username']) && isset($_POST['password'])){
+		
+		$user = $_POST['username'];
+		$pass = hash('whirlpool',$_POST['password']);
 
+		
+		if (!($user == $_SERVER['DB_USER'] && $pass == $_SERVER['DB_PASS'])) {
+		
+		header("index.php");
+		die();
+		
+		}
+		
+		} else	{
+		showLoginForm();
+		echo '<script type="text/javascript">
+		showLoginDialog(); </script>';
+		die(); 
+		}
+		
+		
+		?> <!-- IMPORT OF DATABASE FUNCTIONS AND DIALOG DRAWS-->
+
+		
     <div id="logo">
 	 <a href="">
  	 <img src="images/logo.png" alt="" border="0" width="182" height="85" />  </a></div>
