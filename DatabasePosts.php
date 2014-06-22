@@ -28,6 +28,12 @@ $function = $_POST['function'];
 	case "deleteCustomer":
 		deleteCustomer();
 		break;
+	case "editOrderStatus":
+		editOrderStatus();
+		break;
+	case "imagesUpload":
+		imagesUpload();
+		break;
 }
 
 $function = null;
@@ -50,7 +56,7 @@ $sql = "INSERT INTO products (name,manufacturer,description,categoryID,price,spe
  VALUES (:name,:manufacturer,:description,:category,:price,:specification)";
 
  try {
-    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+    $STH = $GLOBALS["db"]->prepare($sql);  
 	$STH->bindParam(":name", $name);
 	$STH->bindParam(":manufacturer",$manufacturer);
 	$STH->bindParam(":description", $description);
@@ -77,7 +83,7 @@ $id = $_POST['productID'];
 $sql = "DELETE FROM products WHERE id=$id";
 
 try {
-    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+    $STH = $GLOBALS["db"]->prepare($sql);  
 	$STH->execute();
 		echo '<script language="javascript">';
 	echo "window.alert('Product Succesfully Deleted!'); window.location.href='http://localhost/test/AdminPanel.php';";
@@ -106,7 +112,7 @@ $sql = "UPDATE products SET name = :name,manufacturer = :manufacturer,descriptio
 categoryID = :category,price = :price,specification = :specification WHERE id = :id;";
 
  try {
-    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+    $STH = $GLOBALS["db"]->prepare($sql);  
 	$STH->bindParam(":id",$id);
 	$STH->bindParam(":name", $name);
 	$STH->bindParam(":manufacturer",$manufacturer);
@@ -165,16 +171,16 @@ $sql = "INSERT INTO picturearrays (productID,pictureLink,pictureNum) VALUES (:id
 function editCustomer(){
 
 
-$id = $_POST['edit-customerID'];
-$title = $_POST['edit-customerID'];
-$FName = $_POST['edit-customerFName'];
-$LName = $_POST['edit-customerLName'];
-$Email = $_POST['edit-customerEmail'];
-$Number = $_POST['edit-customerNumber'];
-$AddressLine1 = $_POST['edit-customerAddressLine1'];
-$AddressLine2 = $_POST['edit-customerAddressLine2'];
-$AddressCity = $_POST['edit-customerAddressCity'];
-$AddressPostal = $_POST['edit-customerAddressPostal'];
+$id = $_POST['customerID'];
+$Title = $_POST['customerTitle'];
+$FName = $_POST['customerFName'];
+$LName = $_POST['customerLName'];
+$Email = $_POST['customerEmail'];
+$Number = $_POST['customerNumber'];
+$AddressLine1 = $_POST['customerAddressLine1'];
+$AddressLine2 = $_POST['customerAddressLine2'];
+$AddressCity = $_POST['customerAddressCity'];
+$AddressPostal = $_POST['customerAddressPostal'];
 
 
 
@@ -183,14 +189,15 @@ email = :Email,phoneNumber = :Number,addressLine1 = :AddressLine1,addressLine2 =
 addressCity = :AddressCity,addressPostal = :AddressPostal WHERE id = :id;";
 
  try {
-    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+    $STH = $GLOBALS["db"]->prepare($sql);  
 	$STH->bindParam(":id",$id);
+	$STH->bindParam(":title",$Title);
 	$STH->bindParam(":FName", $FName);
 	$STH->bindParam(":LName",$LName);
 	$STH->bindParam(":Email", $Email);
 	$STH->bindParam(":Number", $Number);
 	$STH->bindParam(":AddressLine1", $AddressLine1);
-	$STH->bindParam(":AddressLine1", $AddressLine2);
+	$STH->bindParam(":AddressLine2", $AddressLine2);
 	$STH->bindParam(":AddressCity", $AddressCity);
 	$STH->bindParam(":AddressPostal", $AddressPostal);
 	$STH->execute();
@@ -209,10 +216,11 @@ function deleteCustomer(){
 
 $id = $_POST['customerID'];
 
-$sql = "DELETE FROM customers WHERE id=$id";
+$sql = "DELETE FROM customers WHERE id=:id";
 
 try {
-    $STH = $GLOBALS["db"]->prepare($sql);  //USE PREPARE FOR INSERT QUERIES AND QUERY FOR SELECT QUERIES
+    $STH = $GLOBALS["db"]->prepare($sql);  
+	$STH->bindParam(":id",$id);
 	$STH->execute();
 	echo '<script language="javascript">';
 	echo "window.alert('Customer Succesfully Deleted!'); window.location.href='http://localhost/test/AdminPanel.php';";
@@ -243,6 +251,65 @@ if (mail($to,$subject,$msg,$headers)){
 	echo "window.alert('ERROR! Contact Web Administrators'); window.location.href='http://localhost/test/AdminPanel.php';";
 	echo '</script>';
 	}
+
+}
+
+//// ORDER FUNCTION
+
+function editOrderStatus(){
+
+$id = $_POST['orderID'];
+$status = $_POST['status'];
+
+$sql = "UPDATE productorders SET statusID = :status WHERE id = :id;";
+
+ try {
+    $STH = $GLOBALS["db"]->prepare($sql);  
+	$STH->bindParam(":id",$id);
+	$STH->bindParam(":status",$status);
+	$STH->execute();
+	echo '<script language="javascript">';
+	echo "window.alert('Order Status Succesfully Updated!'); window.location.href='http://localhost/test/AdminPanel.php';";
+	echo '</script>';
+	die();
+} catch(PDOException $ex) {
+    echo "An Error occured!"; 
+}
+
+}
+
+function imagesUpload(){
+
+$allowedExts = array("gif", "jpeg", "jpg", "png");
+$temp = explode(".", $_FILES["file"]["name"]);
+$extension = end($temp);
+
+if ((($_FILES["file"]["type"] == "image/gif")
+|| ($_FILES["file"]["type"] == "image/jpeg")
+|| ($_FILES["file"]["type"] == "image/jpg")
+|| ($_FILES["file"]["type"] == "image/pjpeg")
+|| ($_FILES["file"]["type"] == "image/x-png")
+|| ($_FILES["file"]["type"] == "image/png"))
+&& ($_FILES["file"]["size"] < 800000) // 800kb file limit
+&& in_array($extension, $allowedExts)) {
+  if ($_FILES["file"]["error"] > 0) {
+    echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
+  } else {
+    echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+    echo "Type: " . $_FILES["file"]["type"] . "<br>";
+    echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+    echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
+    if (file_exists("upload/" . $_FILES["file"]["name"])) {
+      echo $_FILES["file"]["name"] . " already exists. ";
+    } else {
+      move_uploaded_file($_FILES["file"]["tmp_name"],
+      "images/" . $_FILES["file"]["name"]);
+      echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
+    }
+  }
+} else {
+  echo "Invalid file";
+}
 
 }
 

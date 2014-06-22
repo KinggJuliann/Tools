@@ -11,7 +11,8 @@ $(document).ready(function() {
         "scrollY": "200px",
         "scrollCollapse": true,
         "paging": false,
-        "jQueryUI": true
+        "jQueryUI": true,
+		"bAutoWidth": false
     });
 	
 	
@@ -113,6 +114,14 @@ $(document).ready(function() {
 	   $('#button').click( function () {
         tableOrders.row('.selectedOrders').remove().draw( false );
     } );
+	
+	//// HEADER RESIZE
+	$(window).on('resize', function () {
+		table.fnAdjustColumnSizing();
+		tableCustomer.fnAdjustColumnSizing();
+		tableOrders.fnAdjustColumnSizing();
+		} );
+	
         
         
 	
@@ -216,8 +225,8 @@ if (document.getElementsByClassName("selectedTD").length > 2)
 {
     $("#dialog-modal-pictures").dialog(
     {
-        width: 700,
-        height: 400,
+        width: 800,
+        height: 350,
         open: function(event, ui)
         {        
 
@@ -254,8 +263,6 @@ if (document.getElementsByClassName("selectedTDCustomer").length > 2)
         open: function(event, ui)
         {		
 			var elements = document.getElementsByClassName("selectedTDCustomer");
-			var price = elements[5].firstChild.data.toString();
-			var temp = price.replace(/£/g,'');
 					$("#edit-customerTitle").val(elements[1].firstChild.data);
            			$("#edit-customerFName").val(elements[2].firstChild.data);
 					$("#edit-customerLName").val(elements[3].firstChild.data);
@@ -267,6 +274,7 @@ if (document.getElementsByClassName("selectedTDCustomer").length > 2)
 					$("#edit-customerAddressL2").val(addressArray[1]);
 					$("#edit-customerAddressCity").val(addressArray[2]);
 					$("#edit-customerAddressPostal").val(addressArray[3]);
+					$("#edit-customerID").val(elements[0].firstChild.data);
         }
      });
 	 } else {
@@ -325,6 +333,108 @@ if (document.getElementsByClassName("selectedTDCustomer").length > 2)
 
 ///////////////////////////// ORDERS DIALOGS //////////////////////////////////////////////
 
+ function showViewCustomerDialog()
+{
+if (document.getElementsByClassName("selectedTDOrders").length > 2)
+{
+    $("#dialog-modal-view-customer").dialog(
+    {
+        width: 900,
+        height: 500,
+        open: function(event, ui)
+        {			
+			var elements = document.getElementsByClassName("selectedTDOrders");
+			
+			var customerID = parseInt(elements[3].firstChild.data);
+			var rowID = "customerRow"+customerID;
+			var customer = document.getElementsByClassName(rowID);					
+			$("#view-label-customerEmail").text(customer[4].firstChild.data);
+            $("#view-label-customerName").text(customer[2].firstChild.data+" "+customer[3].firstChild.data);
+		    $("#view-label-customerNumber").text(customer[5].firstChild.data);
+			$("#view-label-customerAddress").text(customer[6].firstChild.data);
+        }
+     });
+	 } else {
+	 alert('You have not selected an Order! Click an Order on the table first!');
+	 }
+}
+
+
+ function showViewOrderDialog()
+{
+if (document.getElementsByClassName("selectedTDOrders").length > 2)
+{
+    $("#dialog-modal-view-order").dialog(
+    {
+        width: 1000,
+        height: 700,
+        open: function(event, ui)
+        {			
+			var elements = document.getElementsByClassName("selectedTDOrders");
+			var productIDs = elements[1].firstChild.data.split("|");
+			var quantities = elements[2].firstChild.data.split("|");
+			var str = "";
+			var i = 0;
+			var customerID = parseInt(elements[3].firstChild.data);
+			var rowID = "customerRow"+customerID;
+			var customer = document.getElementsByClassName(rowID);	
+			
+			for (i = 0; i < productIDs.length; i++){
+			
+			var rowID = "productRow"+parseInt(productIDs[i]);
+			var product = document.getElementsByClassName(rowID);
+			var productName = product[1].firstChild.data;
+			var productPrice = product[2].firstChild.data;
+			str += "Name: "+productName+"| Quantity: "+quantities[i]+"| Price:"+"£"+productPrice+"\n \n";
+			
+			}			
+				
+			$("#view-label-orderPayment").text(elements[7].firstChild.data);
+			$("#view-label-orderProducts").text(str);
+			$("#view-label-order-customerName").text(customer[2].firstChild.data+" "+customer[3].firstChild.data+"\n");
+			$("#view-label-dateTime").text(elements[4].firstChild.data+" at "+elements[5].firstChild.data);
+			$("#view-label-order-customerEmail").text(customer[4].firstChild.data+"\n");
+			var address = customer[6].firstChild.data.split("|");
+			$("#view-label-order-customerAddress").text(address[0]+"\n"+address[1]+"\n"+address[2]+"\n"+address[3]+"\n");
+        }
+     });
+	 
+	 } else {
+	 alert('You have not selected an Order! Click an Order on the table first!');
+	 }
+}
+
+function printData()
+{
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
+
+  function showEditStatusDialog()
+{
+if (document.getElementsByClassName("selectedTDOrders").length > 2)
+{
+    $("#dialog-modal-edit-status").dialog(
+    {
+        width: 400,
+        height: 200, 
+        open: function(event, ui)
+        {		
+			var elements = document.getElementsByClassName("selectedTDOrders");
+			var statusID = elements[8].firstChild.data.replace ( /[^\d.]/g, '' );
+			var selectBox = document.getElementById('selectStatus');
+			selectBox.value = statusID;
+			$("#edit-orderID").val(elements[0].firstChild.data);
+
+        }
+     });
+	 } else {
+	 alert('You have not selected an Order! Click an Order on the table first!');
+	 }
+}
 
 
 

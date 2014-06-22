@@ -1,4 +1,17 @@
+<?php 
+		require "dialogDraws.php";
+		session_start();
+		
+		if (!isset($_SESSION['user'])) {
 
+		die();
+		
+		} else if ($_SESSION['user'] == 'Admin') {
+				require "DatabasePosts.php"; 
+				} else die();
+		
+		
+		?> 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -19,35 +32,11 @@
   <script type="text/javascript" src="JQueryFunctions.js"></script>
 
  <link rel="stylesheet" type="text/css" href="AdminCP.css">
+
   
   
 </head>
-<body>
-<?php require "DatabasePosts.php"; 
-		require "dialogDraws.php";
-		
-		if (isset($_POST['username']) && isset($_POST['password'])){
-		
-		$user = $_POST['username'];
-		$pass = hash('whirlpool',$_POST['password']);
-
-		
-		if (!($user == $_SERVER['DB_USER'] && $pass == $_SERVER['DB_PASS'])) {
-		
-		header("index.php");
-		die();
-		
-		}
-		
-		} else	{
-		showLoginForm();
-		echo '<script type="text/javascript">
-		showLoginDialog(); </script>';
-		die(); 
-		}
-		
-		
-		?> <!-- IMPORT OF DATABASE FUNCTIONS AND DIALOG DRAWS-->
+<body >
 
 		
     <div id="logo">
@@ -62,16 +51,16 @@
   </ul>
   <div id="tabs-Products">
   <!-------------------------------------- PRODUCT TAB CONTENT------------------------------------------------------------------>
-  <table id="DBTable" class="display" style="table-layout: fixed; width: 90%">
+  <table id="DBTable" class="display" style="table-layout: fixed; width: 100%">
 		<thead>
 		<tr class="ui-widget-header ">
-			<th width="50px">ID</th>
-			<th>Name</th>
-			<th width="120px">Manufacturer</th>
-			<th>Description</th>
-			<th width="150px">Category(ID)</th>
-			<th width="75px">Price</th>
-			<th>Specification</th>
+			<th width="5%">ID</th>
+			<th width="20%">Name</th>
+			<th width="10%">Manufacturer</th>
+			<th width="20%">Description</th>
+			<th width="15%">Category(ID)</th>
+			<th width="10%">Price</th>
+			<th width="20%">Specification</th>
 			</tr>
 			</thead>
 			
@@ -327,25 +316,78 @@
  <tr id="selectedResultOrders"> </tr>
  
  </table>
+  <!-- Hidden Tables -->
+  <table style="display:none;" >
+		<tr >
+			<th width="30px">ID</th>
+			<th width="60px">Title</th>
+			<th width="120px">First Name</th>
+			<th width="120px">Last Name</th>
+			<th width="210px">Email</th>
+			<th width="150px">Phone No'</th>
+			<th width="300px">Address..</th>
+			</tr>
+ 
+ <?php 
+ 			$sql = "SELECT * FROM customers";
+			$STH = $GLOBALS["db"]->query($sql);
+						
+			while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
+			
+			$id = $row['id'];
+			$title = $row ['title'];
+			$FName = $row['firstName'];
+			$LName = $row['lastName'];
+			$Email = $row['email'];
+			$Phone = $row['phoneNumber'];
+			$Address = $row['addressLine1']."|".$row['addressLine2']."|".$row['addressCity']."|".$row['addressPostal'];
+			
+			
+			echo "<tr > <td class='customerRow$id'> $id </td> 
+<td class='customerRow$id'> $title </td class='customerRow$id'> <td class='customerRow$id'> $FName </td> <td class='customerRow$id'> $LName  </td> <td class='customerRow$id'> $Email </td>
+ <td class='customerRow$id'> $Phone </td> <td class='customerRow$id'> $Address</td> </tr>";
+			
+			}
+ 
+ ?>
+ </table>
+   <table style="display:none;" >
+ <?php 
+ 			$sql = "SELECT * FROM products";
+			$STH = $GLOBALS["db"]->query($sql);
+						
+			while ($row = $STH->fetch(PDO::FETCH_ASSOC)) {
+			
+			$id = $row['id'];
+			$name = $row ['name'];
+			$price = $row['price'];			
+			
+			echo "<tr > <td class='productRow$id'> $id </td> 
+<td class='productRow$id'> $name </td> <td class='productRow$id'> $price </td>  </tr>";
+			
+			}
+ 
+ ?>
+ </table>
  
   <br/>
  
  <!-- Customer BUTTON FUNCTIONS -->
- <a href="javascript:void(null);" onclick="showOrderViewDialog();">  <button id="delete-customer">View Order</button> </a>
-   <a href="javascript:void(null);" onclick="showOrderStatusDialog();">  <button id="edit-customer">Change Status</button>  </a>
-      <a href="javascript:void(null);" onclick="showCustomerViewDialog();">  <button id="email-customer">View/Contact Customer</button>  </a>
+ <a href="javascript:void(null);" onclick="showViewOrderDialog();">  <button id="view-order">View Order</button> </a>
+   <a href="javascript:void(null);" onclick="showEditStatusDialog();">  <button id="edit-status">Change Status</button>  </a>
+      <a href="javascript:void(null);" onclick="showViewCustomerDialog();">  <button id="view-customer">View/Contact Customer</button>  </a>
 
    
    <!-- VIEW ORDERS DIALOG -------->
-  <?php dialogDeleteCustomer(); ?>
+  <?php dialogOrdersView(); ?>
   <!-- END DIALOG BOX -->
      
    <!-- CHANGE STATUS DIALOG --------->
-<?php dialogEditCustomer(); ?>
+<?php dialogOrderStatus(); ?>
  <!-- END DIALOG BOX -->
  
     <!-- CONTACT CUSTOMER DIALOG --------->
-<?php dialogEmailCustomer(); ?>
+<?php dialogCustomerView(); ?>
  <!-- EMAIL DIALOG BOX -->
  
   </div>
